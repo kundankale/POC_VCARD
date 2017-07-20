@@ -33,6 +33,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //http://www.intentfilter.com/2016/08/programatically-connecting-to-wifi.html
+    //https://github.com/nickrussler/Android-Wifi-Hotspot-Manager-Class
+
+    //https://github.com/Kailash23/WiFi-Hotspot/blob/master/app/src/main/java/com/juggernaut/hotspot/MainActivity.java
+
     ArrayList<String>vCard;
     String vFie="contacttest.vcf";
     @Override
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void connect() {
 
-        String str="kundanmoto";
+        String str="BTG_Galaxy On7 Pro";
 
         WifiConnectionManager wifiConnectionManager = new WifiConnectionManager(MainActivity.this);
         wifiConnectionManager.connectToAvailableSSID(str, new WifiConnectionManager.ConnectionStateChangedListener() {
