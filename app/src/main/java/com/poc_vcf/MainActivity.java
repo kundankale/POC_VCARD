@@ -1,8 +1,11 @@
 package com.poc_vcf;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.ContactsContract;
@@ -17,6 +20,7 @@ import com.android.vcard.VCardInterpreter;
 import com.android.vcard.VCardParser;
 import com.android.vcard.VCardParser_V21;
 import com.android.vcard.exception.VCardException;
+import com.intentfilter.wificonnect.WifiConnectionManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,6 +32,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    //http://www.intentfilter.com/2016/08/programatically-connecting-to-wifi.html
     ArrayList<String>vCard;
     String vFie="contacttest.vcf";
     @Override
@@ -44,10 +49,38 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                new GetContact().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+               // new GetContact().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                
+                connect();
+                
+                
             }
         });
 
+
+    }
+
+    private void connect() {
+
+        String str="kundanmoto";
+
+        WifiConnectionManager wifiConnectionManager = new WifiConnectionManager(MainActivity.this);
+        wifiConnectionManager.connectToAvailableSSID(str, new WifiConnectionManager.ConnectionStateChangedListener() {
+            @Override
+            public void onConnectionEstablished() {
+
+                Log.d("POC", "onConnectionEstablished: ");
+            }
+
+            @Override
+            public void onConnectionError(String reason) {
+                Log.d("POC", "onConnectionError: ");
+            }
+        });
+
+
+        wifiConnectionManager.setBindingEnabled(true);
+        wifiConnectionManager.checkBoundNetworkConnectivity();
 
     }
 
